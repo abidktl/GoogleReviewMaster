@@ -69,44 +69,57 @@ export default function GMBIntegration() {
   // Check GMB connection status
   const { data: gmbStatus, isLoading: statusLoading } = useQuery({
     queryKey: ['/api/gmb/status'],
-    queryFn: () => apiRequest({ url: '/api/gmb/status' })
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/gmb/status');
+      return response.json();
+    }
   });
 
   // Get auth URL for GMB connection
   const { data: authData } = useQuery({
     queryKey: ['/api/gmb/auth-url'],
-    queryFn: () => apiRequest({ url: '/api/gmb/auth-url' }),
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/gmb/auth-url');
+      return response.json();
+    },
     enabled: !gmbStatus?.isConnected
   });
 
   // Get GMB accounts
   const { data: accounts, isLoading: accountsLoading } = useQuery({
     queryKey: ['/api/gmb/accounts'],
-    queryFn: () => apiRequest({ url: '/api/gmb/accounts' }),
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/gmb/accounts');
+      return response.json();
+    },
     enabled: gmbStatus?.isConnected
   });
 
   // Get locations for selected account
   const { data: locations, isLoading: locationsLoading } = useQuery({
     queryKey: ['/api/gmb/locations', selectedAccount],
-    queryFn: () => apiRequest({ url: `/api/gmb/locations/${selectedAccount}` }),
+    queryFn: async () => {
+      const response = await apiRequest('GET', `/api/gmb/locations/${selectedAccount}`);
+      return response.json();
+    },
     enabled: !!selectedAccount
   });
 
   // Get reviews for selected location
   const { data: gmbReviews, isLoading: reviewsLoading } = useQuery({
     queryKey: ['/api/gmb/reviews', selectedAccount, selectedLocation],
-    queryFn: () => apiRequest({ url: `/api/gmb/reviews/${selectedAccount}/${selectedLocation}` }),
+    queryFn: async () => {
+      const response = await apiRequest('GET', `/api/gmb/reviews/${selectedAccount}/${selectedLocation}`);
+      return response.json();
+    },
     enabled: !!selectedAccount && !!selectedLocation
   });
 
   // Sync reviews mutation
   const syncReviewsMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest({ 
-        url: `/api/gmb/sync/${selectedAccount}/${selectedLocation}`,
-        method: 'POST'
-      });
+      const response = await apiRequest('POST', `/api/gmb/sync/${selectedAccount}/${selectedLocation}`);
+      return response.json();
     },
     onSuccess: (data) => {
       toast({
