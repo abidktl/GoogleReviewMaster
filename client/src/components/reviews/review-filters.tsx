@@ -53,7 +53,6 @@ export default function ReviewFilters({ onFiltersChange }: ReviewFiltersProps) {
             <SelectValue placeholder="All Ratings" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Ratings</SelectItem>
             <SelectItem value="5">5 Stars</SelectItem>
             <SelectItem value="4">4 Stars</SelectItem>
             <SelectItem value="3">3 Stars</SelectItem>
@@ -67,7 +66,6 @@ export default function ReviewFilters({ onFiltersChange }: ReviewFiltersProps) {
             <SelectValue placeholder="Response Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Status</SelectItem>
             <SelectItem value="responded">Responded</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="draft">Draft</SelectItem>
@@ -80,7 +78,6 @@ export default function ReviewFilters({ onFiltersChange }: ReviewFiltersProps) {
             <SelectValue placeholder="Date Range" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Time</SelectItem>
             <SelectItem value="last-7-days">Last 7 days</SelectItem>
             <SelectItem value="last-30-days">Last 30 days</SelectItem>
             <SelectItem value="last-3-months">Last 3 months</SelectItem>
