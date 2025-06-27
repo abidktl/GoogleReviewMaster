@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Dashboard from "@/pages/dashboard";
 import Reviews from "@/pages/reviews";
 import Templates from "@/pages/templates";
+import GMBIntegration from "@/pages/gmb-integration";
 import NotFound from "@/pages/not-found";
 
 // Layout
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/" component={Dashboard} />
         <Route path="/reviews" component={Reviews} />
         <Route path="/templates" component={Templates} />
+        <Route path="/integrations/gmb" component={GMBIntegration} />
         <Route component={NotFound} />
       </Switch>
     </AppLayout>

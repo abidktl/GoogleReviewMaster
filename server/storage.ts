@@ -21,6 +21,7 @@ export interface IStorage {
     search?: string;
   }): Promise<ReviewWithResponse[]>;
   getReview(id: number): Promise<ReviewWithResponse | undefined>;
+  getReviewByGMBId(gmbId?: string): Promise<ReviewWithResponse | undefined>;
   createReview(review: InsertReview): Promise<Review>;
   updateReviewResponse(id: number, response: string, status: string): Promise<Review | undefined>;
 
@@ -37,6 +38,12 @@ export interface IStorage {
 
   // Dashboard operations
   getDashboardStats(): Promise<DashboardStats>;
+
+  // GMB Integration operations
+  saveGMBTokens(userId: number, tokens: any): Promise<void>;
+  getGMBTokens(userId: number): Promise<any>;
+  saveGMBAccount(userId: number, accountData: any): Promise<void>;
+  getGMBAccount(userId: number): Promise<any>;
 }
 
 export class MemStorage implements IStorage {
@@ -44,6 +51,8 @@ export class MemStorage implements IStorage {
   private reviews: Map<number, Review>;
   private templates: Map<number, Template>;
   private responses: Map<number, Response>;
+  private gmbTokens: Map<number, any>;
+  private gmbAccounts: Map<number, any>;
   private currentUserId: number;
   private currentReviewId: number;
   private currentTemplateId: number;
@@ -54,6 +63,8 @@ export class MemStorage implements IStorage {
     this.reviews = new Map();
     this.templates = new Map();
     this.responses = new Map();
+    this.gmbTokens = new Map();
+    this.gmbAccounts = new Map();
     this.currentUserId = 1;
     this.currentReviewId = 1;
     this.currentTemplateId = 1;
@@ -262,6 +273,18 @@ export class MemStorage implements IStorage {
     };
   }
 
+  async getReviewByGMBId(gmbId?: string): Promise<ReviewWithResponse | undefined> {
+    if (!gmbId) return undefined;
+    
+    for (const review of this.reviews.values()) {
+      if (review.sourceId === gmbId) {
+        const responses = await this.getResponsesByReview(review.id);
+        return { ...review, responses };
+      }
+    }
+    return undefined;
+  }
+
   async createReview(review: InsertReview): Promise<Review> {
     const id = this.currentReviewId++;
     const newReview: Review = { 
@@ -384,6 +407,23 @@ export class MemStorage implements IStorage {
         responses: 5, // Simplified
       },
     };
+  }
+
+  // GMB Integration methods
+  async saveGMBTokens(userId: number, tokens: any): Promise<void> {
+    this.gmbTokens.set(userId, tokens);
+  }
+
+  async getGMBTokens(userId: number): Promise<any> {
+    return this.gmbTokens.get(userId);
+  }
+
+  async saveGMBAccount(userId: number, accountData: any): Promise<void> {
+    this.gmbAccounts.set(userId, accountData);
+  }
+
+  async getGMBAccount(userId: number): Promise<any> {
+    return this.gmbAccounts.get(userId);
   }
 }
 

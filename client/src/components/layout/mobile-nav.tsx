@@ -29,11 +29,11 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
       count: 3
     },
     { 
-      path: "/respond", 
-      label: "Respond", 
+      path: "/integrations/gmb", 
+      label: "Google My Business", 
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/>
+          <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h2v-2h2v-2h2v8z"/>
         </svg>
       )
     },

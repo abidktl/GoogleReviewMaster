@@ -19,6 +19,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
     { path: "/", label: "Dashboard", icon: "home", count: 0 },
     { path: "/reviews", label: "Reviews", icon: "star", count: 12 },
     { path: "/templates", label: "Templates", icon: "template", count: 0 },
+    { path: "/integrations/gmb", label: "Google My Business", icon: "building", count: 0 },
   ];
 
   const currentNav = navItems.find(item => item.path === location) || navItems[0];
@@ -128,6 +129,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
                       <path d="M16 13H8"/>
                       <path d="M16 17H8"/>
                       <path d="M10 9H8"/>
+                    </svg>
+                  )}
+                  {item.icon === "building" && (
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h2v-2h2v-2h2v8z"/>
                     </svg>
                   )}
                 </span>
