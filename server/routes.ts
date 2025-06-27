@@ -212,7 +212,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/gmb/callback", async (req, res) => {
     try {
-      const { code } = req.body;
+      const code = req.query.code as string;
       if (!code) {
         return res.status(400).json({ message: "Authorization code required" });
       }

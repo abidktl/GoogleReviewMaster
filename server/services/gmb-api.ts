@@ -50,7 +50,7 @@ export class GMBApiService {
   getAuthUrl(): string {
     // For now, return a placeholder URL
     // In production, this would generate the actual OAuth URL
-    return `https://accounts.google.com/oauth/authorize?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.GOOGLE_REDIRECT_URI || 'http://localhost:5000/auth/google/callback')}&scope=https://www.googleapis.com/auth/business.manage&response_type=code&access_type=offline&prompt=consent`;
+    return `https://accounts.google.com/oauth/authorize?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.GOOGLE_REDIRECT_URI || 'https://zany-goldfish-x5p5vpg96pp6hvx7g-5000.app.github.dev/auth/google/callback')}&scope=https://www.googleapis.com/auth/business.manage&response_type=code&access_type=offline&prompt=consent`;
   }
 
   /**
